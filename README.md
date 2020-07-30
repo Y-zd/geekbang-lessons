@@ -1,5 +1,5 @@
 ##### 第一章：Spring Framework总览（Overview）
-   - 什么是Spring Framework？
+ - 什么是Spring Framework？
    * Spring使创建Java企业应用程序变得容易。它提供了在企业环境中使用Java语言所需的一切。
    * 支持Groovy和Kotlin作为JVM上的替代语言，并根据应用程序的需要灵活地创建多种体系结构。
  - Spring Framework 有哪些核心模块？
