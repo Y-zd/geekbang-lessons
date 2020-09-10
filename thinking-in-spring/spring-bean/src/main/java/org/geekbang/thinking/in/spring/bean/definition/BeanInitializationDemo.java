@@ -51,7 +51,7 @@ public class BeanInitializationDemo {
     }
 
     @Bean(initMethod = "initUserFactory", destroyMethod = "doDestroy")
-    @Lazy(value = false)
+    @Lazy(value = true)
     public UserFactory userFactory() {
         return new DefaultUserFactory();
     }

@@ -94,4 +94,54 @@
     3. Java API 配置元信息
        * 命名方式：BeanDefinitionRegistry#registerBeanDefinition(String,BeanDefinition)
        * 非命名方式：BeanDefinitionReaderUtils#registerWithGeneratedName(AbstractBeanDefinition,BeanDefinitionRegistry)
-       * 配置类方式：AnnotatedBeanDefinitionReader#register(Class...)      
+       * 配置类方式：AnnotatedBeanDefinitionReader#register(Class...) 
+  
+  - Bean 实例化（Instantiation）
+    1. 常规方式 [demo](/thinking-in-spring/spring-bean/src/main/java/org/geekbang/thinking/in/spring/bean/definition/BeanInstantiationDemo.java)
+       * 通过构造器（配置元信息：XML、Java 注解和 Java API ）
+       * 通过静态工厂方法（配置元信息：XML 和 Java API ）
+       * 通过 Bean 工厂方法（配置元信息：XML和 Java API ）
+       * 通过 FactoryBean（配置元信息：XML、Java 注解和 Java API ）
+    2 特殊方式 [demo](/thinking-in-spring/spring-bean/src/main/java/org/geekbang/thinking/in/spring/bean/definition/SpecialBeanInstantiationDemo.java) 
+       * 通过 ServiceLoaderFactoryBean（配置元信息：XML、Java 注解和 Java API ）
+       * 通过 AutowireCapableBeanFactory#createBean(java.lang.Class, int, boolean)
+       * 通过 BeanDefinitionRegistry#registerBeanDefinition(String,BeanDefinition)          
+       
+  - Bean 初始化（Initialization） [demo](/thinking-in-spring/spring-bean/src/main/java/org/geekbang/thinking/in/spring/bean/definition/BeanInitializationDemo.java)  
+    1. @PostConstruct 标注方法
+    2. 实现 InitializingBean 接口的 afterPropertiesSet() 方法
+    3. 自定义初始化方法
+       * XML 配置：<bean init-method=”init” ... />
+       * Java 注解：@Bean(initMethod=”init”)
+       * Java API：AbstractBeanDefinition#setInitMethodName(String)
+    4. 思考：假设以上三种方式均在同一 Bean 中定义，那么这些方法的执行顺序是怎样？    
+       * postconstruct 构造后置 afterpropertiesset 属性填充后  initmethod bean初始化(可以认为是功能初始化)
+       * spring bean初始化顺序：PostContruct->afterPropertiesSet->自定义init方法
+   
+  - Bean 延迟初始化 （Lazy Initialization）Spring默认非延迟
+    1. XML 配置：<bean lazy-init=”true” ... />
+    2. Java 注解：@Lazy(true)       
+       
+  - Bean 销毁（Destroy）
+    1. @PreDestroy 标注方法
+    2. 实现 DisposableBean 接口的 destroy() 方法
+    3. 自定义销毁方法
+       * XML 配置：<bean destroy=”destroy” ... />
+       * Java 注解：@Bean(destroy=”destroy”)
+       * Java API：AbstractBeanDefinition#setDestroyMethodName(String)
+    4. 思考：假设以上三种方式均在同一 Bean 中定义，那么这些方法的执行顺序是怎样？
+       * @PreDestroy>实现 DisposableBean 接口>自定义销毁方法
+       
+  - Bean 垃圾回收（GC）
+    1. 关闭 Spring 容器（应用上下文）
+    2. 执行 GC
+    3. Spring Bean 覆盖的 finalize() 方法被回调
+       
+  - 如何注册一个 Spring Bean？
+     * 回顾“定义 Spring Bean” 和 “BeanDefinition 元信息”
+  
+  - 什么是 Spring BeanDefinition？
+     
+  - Spring 容器是怎样管理注册 Bean?
+     * 答案将在后续专题章节详细讨论，如：IoC 配置元信息读取和解析、依赖查找和注入以及 Bean 生命周期等。
+       
