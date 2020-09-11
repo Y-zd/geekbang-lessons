@@ -46,7 +46,7 @@
  - Spring IoC 容器启动时做了哪些准备？
    * IoC 配置元信息读取和解析、IoC 容器生命周期、Spring 事件发布、国际化等，更多答案将在后续专题章节逐一讨论
 
-##### 第四章：Spring Bean基础
+##### 第四章：Spring Bean基础 [demo](/thinking-in-spring/spring-bean)
  - 什么是 BeanDefinition？
    * BeanDefinition（bean定义） 是 Spring Framework 中定义 Bean 的配置元信息接口
    * BeanDefinition 元信息
@@ -132,7 +132,7 @@
     4. 思考：假设以上三种方式均在同一 Bean 中定义，那么这些方法的执行顺序是怎样？
        * @PreDestroy>实现 DisposableBean 接口>自定义销毁方法
        
-  - Bean 垃圾回收（GC）
+  - Bean 垃圾回收（GC）[demo](/thinking-in-spring/spring-bean/src/main/java/org/geekbang/thinking/in/spring/bean/definition/BeanGarbageCollectionDemo.java)  
     1. 关闭 Spring 容器（应用上下文）
     2. 执行 GC
     3. Spring Bean 覆盖的 finalize() 方法被回调
@@ -144,4 +144,54 @@
      
   - Spring 容器是怎样管理注册 Bean?
      * 答案将在后续专题章节详细讨论，如：IoC 配置元信息读取和解析、依赖查找和注入以及 Bean 生命周期等。
+ 
+ 
+ ##### 第五章：Spring IoC 依赖查找 [demo](/thinking-in-spring/dependency-lookup)     
+ 
+  - 单一类型依赖查找接口 - BeanFactory
+    1. 根据 Bean 名称查找
+       * getBean(String)
+       * Spring 2.5 覆盖默认参数：getBean(String,Object...)
+    2. 根据 Bean 类型查找
+       * Bean 实时查找
+         * Spring 3.0 getBean(Class)
+         * Spring 4.1 覆盖默认参数：getBean(Class,Object...)
+       * Spring 5.1 Bean 延迟查找 
+         * getBeanProvider(Class)
+       * getBeanProvider(ResolvableType)
+    3. 根据 Bean 名称 + 类型查找：getBean(String,Class)
        
+  - 集合类型依赖查找接口 - ListableBeanFactory
+   1. 根据 Bean 类型查找
+      * 获取同类型 Bean 名称列表
+        * getBeanNamesForType(Class)
+        * Spring 4.2 getBeanNamesForType(ResolvableType)
+      * 获取同类型 Bean 实例列表
+        * getBeansOfType(Class) 以及重载方法
+   2. 通过注解类型查找
+      * Spring 3.0 获取标注类型 Bean 名称列表
+        * getBeanNamesForAnnotation(Class<? extends Annotation>)
+      * Spring 3.0 获取标注类型 Bean 实例列表
+        * getBeansWithAnnotation(Class<? extends Annotation>)
+      * Spring 3.0 获取指定名称 + 标注类型 Bean 实例
+        * findAnnotationOnBean(String,Class<? extends Annotation>) 
+      
+  - 层次性依赖查找接口 - HierarchicalBeanFactory  [demo](/thinking-in-spring/dependency-lookup/src/main/java/org/geekbang/thinking/in/spring/dependency/lookup/HierarchicalDependencyLookupDemo.java)  
+     1. 双亲 BeanFactory：getParentBeanFactory() 双亲查找是先在子容器查找没有再查找父容器
+     2. 层次性查找
+       * 根据 Bean 名称查找
+         * 基于 containsLocalBean 方法实现
+       * 根据 Bean 类型查找实例列表
+         * 单一类型：BeanFactoryUtils#beanOfType
+         * 集合类型：BeanFactoryUtils#beansOfTypeIncludingAncestors
+       * 根据 Java 注解查找名称列表
+         * BeanFactoryUtils#beanNamesForTypeIncludingAncestors     
+   
+  - Bean 延迟依赖查找接口
+    1. org.springframework.beans.factory.ObjectFactory
+    2. org.springframework.beans.factory.ObjectProvider
+       * Spring 5 对 Java 8 特性扩展
+         * 函数式接口
+           * getIfAvailable(Supplier)
+           * ifAvailable(Consumer)
+         * Stream 扩展 - stream()      
