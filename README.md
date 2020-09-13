@@ -195,3 +195,47 @@
            * getIfAvailable(Supplier)
            * ifAvailable(Consumer)
          * Stream 扩展 - stream()      
+         
+   - 依赖查找安全性对比(异常安全,是否抛异常) [demo](/thinking-in-spring/dependency-lookup/src/main/java/org/geekbang/thinking/in/spring/dependency/lookup/TypeSafetyDependencyLookupDemo.java)
+   
+      |依赖查找类型  | 代表实现                            | 是否安全 | 
+      | -----------| ---------------------------------- | --------| 
+      | 单一类型查找 | BeanFactory#getBean                |  否     |
+      |            | ObjectFactory#getObject            |  否     |
+      |            | ObjectProvider#getIfAvailable      |  是     |
+      |            |                                    |         |
+      | 集合类型查找 | ListableBeanFactory#getBeansOfType |  是     |
+      |            | ObjectProvider#stream              |  是     |          
+      * 注意：层次性依赖查找的安全性取决于其扩展的单一或集合类型的 BeanFactory 接口
+      
+   - AbstractApplicationContext 内建可查找的依赖 
+   
+      | Bean 名称                    | Bean 实例                       | 使用场景                | 
+      | ----------------------------| ------------------------------- | ----------------------| 
+      | environment                 | Environment 对象                 | 外部化配置以及 Profiles |
+      | systemProperties            | java.util.Properties 对象        |  Java 系统属性         |
+      | systemEnvironment           | java.util.Map 对象               | 操作系统环境变量        |
+      | messageSource               | MessageSource 对象               | 国际化文案              |
+      | lifecycleProcessor          | LifecycleProcessor 对象          | Lifecycle Bean 处理器  |
+      | applicationEventMulticaster | ApplicationEventMulticaster 对象 | Spring 事件广播器       |          
+      
+  - ObjectFactory 与 BeanFactory 的区别？
+    * ObjectFactory 与 BeanFactory 均提供依赖查找的能力。
+    * 不过 ObjectFactory 仅关注一个或一种类型的 Bean 依赖查找，并且自身不具备依赖查找的能力，能力则由 BeanFactory 输出。
+    * BeanFactory 则提供了单一类型、集合类型以及层次性等多种依赖查找方式。
+  
+  - BeanFactory.getBean 操作是否线程安全？
+    * BeanFactory.getBean 方法的执行是线程安全的，超过过程中会增加互斥锁 
+  
+  - Spring 依赖查找与注入在来源上的区别?  
+    * 答案将《Spring IoC依赖注入》以及《Spring IoC依赖来源》章节中继续讨论。
+     
+ ##### 第六章：Spring IoC 注入 [demo](/thinking-in-spring/dependency-injection)
+  - 有多少种依赖注入的方式？
+    * 构造器注入 Setter 注入 字段注入 方法注入 接口回调注入
+   
+  - 你偏好构造器注入还是 Setter 注入？
+    * 两种依赖注入的方式均可使用，如果是必须依赖的话，那么推荐使用构造器注入，Setter 注入用于可选依赖  
+   
+  - Spring 依赖注入的来源有哪些？
+    * 答案将《Spring IoC依赖来源》章节中继续讨论。 
