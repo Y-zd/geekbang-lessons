@@ -250,3 +250,27 @@
     
   - Spring 依赖注入的来源有哪些？
     * Spring BeanDefinition , 单例对象 ,Resolvable Dependency(内置的对象) ,@Value 外部化配置  
+    
+ ##### 第八章：Spring Bean 作用域 [demo](/thinking-in-spring/bean-scope)    
+  - 作用域
+   
+   |来源          | 说明                                                  | 
+   | ------------| ------------------------------------------------------|
+   | singleton   | 默认 Spring Bean 作用域，一个 BeanFactory 有且仅有一个实例 |  
+   | prototype   | 原型作用域，每次依赖查找和依赖注入生成新 Bean 对象           | 
+   | request     | 将 Spring Bean 存储在 ServletRequest 上下文中            | 
+   | session     | 将 Spring Bean 存储在 HttpSession 中                    |
+   | application | 将 Spring Bean 存储在 ServletContext 中                 | 
+   
+   * `Spring 容器没有办法管理 prototype Bean 的完整生命周期，也没有办法记录示例的存
+     在。销毁回调方法将不会执行，可以利用 BeanPostProcessor 进行清扫工作。`
+     
+  - Spring 內建的 Bean 作用域有几种？  
+    * singleton、prototype、request、session、application 以及websocket
+  
+  - singleton Bean 是否在一个应用是唯一的？  
+    * 否，singleton bean 仅在当前 Spring IoC 容器（BeanFactory）中是单例对象。
+    
+  - “application”Bean 是否被其他方案替代?
+    * 可以的，实际上，“application” Bean 与“singleton” Bean 没有本质区别
+      

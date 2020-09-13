@@ -144,6 +144,8 @@ public class BeanScopeDemo implements DisposableBean {
         System.out.println("beanScopeDemo.singletonUser1 = " + beanScopeDemo.singletonUser1);
 
         System.out.println("beanScopeDemo.prototypeUser = " + beanScopeDemo.prototypeUser);
+        System.out.println("beanScopeDemo.prototypeUser = " + beanScopeDemo.prototypeUser);
+
         System.out.println("beanScopeDemo.prototypeUser1 = " + beanScopeDemo.prototypeUser1);
         System.out.println("beanScopeDemo.prototypeUser2 = " + beanScopeDemo.prototypeUser2);
 
