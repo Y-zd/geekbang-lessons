@@ -273,4 +273,38 @@
     
   - “application”Bean 是否被其他方案替代?
     * 可以的，实际上，“application” Bean 与“singleton” Bean 没有本质区别
-      
+ 
+ 
+ ##### 第九章：Spring Bean 生命周期 [demo](/thinking-in-spring/bean-lifecycle)    
+  - BeanPostProcessor 的使用场景有哪些？
+    * BeanPostProcessor 提供 Spring Bean 初始化前和初始化后的生
+      命周期回调，分别对应 postProcessBeforeInitialization 以及
+      postProcessAfterInitialization 方法，允许对关心的 Bean 进行扩展
+      ，甚至是替换。
+    * 加分项：其中，ApplicationContext 相关的 Aware 回调也是基于
+      BeanPostProcessor 实现，即 ApplicationContextAwareProcessor
+  
+  - BeanFactoryPostProcessor 与BeanPostProcessor 的区别?
+    * BeanFactoryPostProcessor 是 Spring BeanFactory（实际为
+      ConfigurableListableBeanFactory） 的后置处理器，用于扩展
+      BeanFactory，或通过 BeanFactory 进行依赖查找和依赖注入。
+    * 加分项：BeanFactoryPostProcessor 必须有 Spring ApplicationContext
+      执行，BeanFactory 无法与其直接交互。
+    * 而 BeanPostProcessor 则直接与BeanFactory 关联，属于 N 对 1 的关系。
+    
+  - BeanFactory 是怎样处理 Bean 生命周期？
+    * BeanFactory 的默认实现为 DefaultListableBeanFactory，其中 Bean生命周期与方法映射如下：
+      1. BeanDefinition 注册阶段 - registerBeanDefinition
+      2. BeanDefinition 合并阶段 - getMergedBeanDefinition
+      3. Bean 实例化前阶段 - resolveBeforeInstantiation
+      4. Bean 实例化阶段 - createBeanInstance
+      5. Bean 实例化后阶段 - populateBean
+      6. Bean 属性赋值前阶段 - populateBean
+      7. Bean 属性赋值阶段 - populateBean
+      8. Bean Aware 接口回调阶段 - initializeBean
+      9. Bean 初始化前阶段 - initializeBean
+     10. Bean 初始化阶段 - initializeBean
+     11. Bean 初始化后阶段 - initializeBean
+     12. Bean 初始化完成阶段 - preInstantiateSingletons
+     13. Bean 销毁前阶段 - destroyBean
+     14. Bean 销毁阶段 - destroyBean
