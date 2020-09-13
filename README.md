@@ -294,17 +294,17 @@
     
   - BeanFactory 是怎样处理 Bean 生命周期？
     * BeanFactory 的默认实现为 DefaultListableBeanFactory，其中 Bean生命周期与方法映射如下：
-      1. BeanDefinition 注册阶段 - registerBeanDefinition
-      2. BeanDefinition 合并阶段 - getMergedBeanDefinition
-      3. Bean 实例化前阶段 - resolveBeforeInstantiation
-      4. Bean 实例化阶段 - createBeanInstance
-      5. Bean 实例化后阶段 - populateBean
-      6. Bean 属性赋值前阶段 - populateBean
-      7. Bean 属性赋值阶段 - populateBean
-      8. Bean Aware 接口回调阶段 - initializeBean
-      9. Bean 初始化前阶段 - initializeBean
-     10. Bean 初始化阶段 - initializeBean
-     11. Bean 初始化后阶段 - initializeBean
-     12. Bean 初始化完成阶段 - preInstantiateSingletons
-     13. Bean 销毁前阶段 - destroyBean
-     14. Bean 销毁阶段 - destroyBean
+      1.BeanDefinition 注册阶段 - registerBeanDefinition <br>
+      2.BeanDefinition 合并阶段 - getMergedBeanDefinition <br>
+      3.Bean 实例化前阶段 - resolveBeforeInstantiation <br>
+      4.Bean 实例化阶段 - createBeanInstance <br>
+      5.Bean 实例化后阶段 - populateBean <br>
+      6.Bean 属性赋值前阶段 - populateBean <br>
+      7.Bean 属性赋值阶段 - populateBean <br>
+      8.Bean Aware 接口回调阶段 - initializeBean <br>
+      9.Bean 初始化前阶段 - initializeBean <br>
+     10.Bean 初始化阶段 - initializeBean <br>
+     11.Bean 初始化后阶段 - initializeBean <br>
+     12.Bean 初始化完成阶段 - preInstantiateSingletons <br>
+     13.Bean 销毁前阶段 - destroyBean <br>
+     14.Bean 销毁阶段 - destroyBean <br>
