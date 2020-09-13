@@ -239,3 +239,14 @@
    
   - Spring 依赖注入的来源有哪些？
     * 答案将《Spring IoC依赖来源》章节中继续讨论。 
+    `终于理解之前第24讲里提到的Spring IOC的三种依赖来源，自定义注册的Spring bean、内建的Spring bean以及内建的可注入的依赖，其中自定义注册的Spring bean基本上是通过xml、注解或者api注册BeanDefination创建的，内建的Spring bean是通过registerSingleton()创建的，内建的可注入的依赖是通过registerResolveDependency()创建的，后续如果我们需要往Spring容器里放入一些非Spring托管的bean但又可以被依赖注入的, 可以通过registerResolveDependency() API实现`
+
+ ##### 第七章：Spring IoC 依赖来源 [demo](/thinking-in-spring/dependency-source)
+  - 注入和查找的依赖来源是否相同？
+    * 否，依赖查找的来源仅限于 Spring BeanDefinition 以及单例对象，而依赖注入的来源还包括 Resolvable Dependency 以及@Value 所标注的外部化配置
+  
+  - 单例对象能在 IoC 容器启动后注册吗？
+    * 可以的，单例对象的注册与 BeanDefinition 不同，BeanDefinition 会被 ConfigurableListableBeanFactory#freezeConfiguration() 方法影响，从而冻结注册，单例对象则没有这个限制。  
+    
+  - Spring 依赖注入的来源有哪些？
+    * Spring BeanDefinition , 单例对象 ,Resolvable Dependency(内置的对象) ,@Value 外部化配置  
