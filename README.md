@@ -293,7 +293,7 @@
     * 而 BeanPostProcessor 则直接与BeanFactory 关联，属于 N 对 1 的关系。
     
   - BeanFactory 是怎样处理 Bean 生命周期？
-    * BeanFactory 的默认实现为 DefaultListableBeanFactory，其中 Bean生命周期与方法映射如下：
+    * BeanFactory 的默认实现为 DefaultListableBeanFactory，其中 Bean生命周期与方法映射如下： <br>
       1.BeanDefinition 注册阶段 - registerBeanDefinition <br>
       2.BeanDefinition 合并阶段 - getMergedBeanDefinition <br>
       3.Bean 实例化前阶段 - resolveBeforeInstantiation <br>
